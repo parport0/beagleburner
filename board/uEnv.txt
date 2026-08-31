@@ -4,8 +4,12 @@ bootdir=
 bootfile=zImage
 bootpartition=mmcblk0p2
 console=ttyS0,115200n8
-loadaddr=0x82000000
+loadaddr=0x80800000
+kerneladdr=0x82000000
 fdtaddr=0x88000000
+ramdiskaddr=0x88080000
+httpdstp=8000
+
 set_mmc1=if test $board_name = A33515BB; then setenv bootpartition mmcblk1p2; fi
 set_bootargs=setenv bootargs console=${console} root=/dev/${bootpartition} rw rootfstype=ext4 rootwait
-uenvcmd=run set_mmc1; run set_bootargs;run loadimage;run loadfdt;printenv bootargs;bootz ${loadaddr} - ${fdtaddr}
+uenvcmd=run set_mmc1; run set_bootargs;printenv bootargs;setenv autoload no;dhcp;wget $loadaddr beagleburner.itb;bootm ${loadaddr}

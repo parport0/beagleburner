@@ -14,6 +14,19 @@ button!
 
 For more information of how to use this device, see [USAGE.md](USAGE.md).
 
+## notes for parport0
+
+### Debian tftpd instructions
+
+Download and build uftpd. Then:
+
+    sudo ~/repos/uftpd/src/uftpd -n -p /tmp/uftpd.pid -o ftp=21,tftp=69 ~/repos/beagleburner/buildroot/output/
+
+### Booting over http
+
+The config has been changed to autoboot from http.
+Downloading can be done with the "wget" command now
+
 ## Build
 
 Clone this repo:
@@ -69,7 +82,7 @@ And then, using serial connected to BeagleBone Black, do this:
 
     => dhcp $loadaddr <your-pc-ip> emmc.img
     => mmc dev 1
-    => mmc write $loadaddr 0 0x27000
+    => mmc write $loadaddr 0 0x29000
 
 ## Booting from FIT
 
